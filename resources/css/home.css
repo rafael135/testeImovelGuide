@@ -1,0 +1,34 @@
+@layer components {
+    a.createCorretorBtn {
+        @apply inline-flex px-6 py-3 mx-auto text-white bg-blue-500 rounded-md hover:bg-blue-600;
+    }
+
+
+
+    .modal {
+
+    }
+
+    .modal div.loadingStatus {
+        @apply hidden bg-black/30 absolute top-0 bottom-0 left-0 right-0 justify-center items-center;
+    }
+    .modal div.loadingStatus.loading {
+        @apply !flex;
+    }
+
+    .modal .footer {
+        @apply flex items-center gap-3 p-4 md:p-5 border-t border-gray-200 rounded-b;
+    }
+
+    .modal button.footerBtn {
+        @apply flex-1 py-2.5 px-5 text-center text-sm font-medium rounded-lg;
+    }
+
+    .modal button.footerBtn.submitBtn {
+        @apply text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
+    }
+
+    .modal button.footerBtn.cancelBtn {
+        @apply text-white focus:outline-none bg-red-500 border border-red-600 hover:bg-red-600 hover:text-slate-50 focus:z-10 focus:ring-4 focus:ring-red-600/50;
+    }
+}
