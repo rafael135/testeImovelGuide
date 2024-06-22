@@ -11,6 +11,9 @@ class CorretorController extends Controller
     public function cadastrarAction(CreateCorretorRequest $request) {
         $dados = $request->validated();
 
+        $dados["cpf"] = str_replace(".", "", $dados["cpf"]);
+        $dados["cpf"] = str_replace("-", "", $dados["cpf"]);
+
         Corretor::create($dados);
 
         return redirect("/")->with("status", "Corretor cadastrado com sucesso!");
@@ -58,6 +61,8 @@ class CorretorController extends Controller
 
         $corretor->nome = $validatedData["nome"];
         $corretor->cpf = $validatedData["cpf"];
+        $corretor->cpf = str_replace(".", "", $corretor->cpf);
+        $corretor->cpf = str_replace("-", "", $corretor->cpf);
         $corretor->creci = $validatedData["creci"];
 
         $corretor->save();

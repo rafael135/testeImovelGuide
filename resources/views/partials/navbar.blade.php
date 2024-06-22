@@ -1,4 +1,4 @@
-<nav class="border-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
+<nav class="border-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-700 shadow">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="{{ route('home') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Corretores</span>
@@ -16,20 +16,8 @@
         <div class="hidden w-full" id="navbar-hamburger">
             <ul class="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
                 <li>
-                    <a href="#" class="block py-2 px-3 text-white bg-blue-700 rounded dark:bg-blue-600"
+                    <a href="{{ route("home") }}" class="block py-2 px-3 text-white bg-blue-700 rounded dark:bg-blue-600"
                         aria-current="page">Home</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Services</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white">Pricing</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Contact</a>
                 </li>
             </ul>
         </div>

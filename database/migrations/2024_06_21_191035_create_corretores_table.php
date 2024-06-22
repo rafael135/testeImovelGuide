@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('corretores', function (Blueprint $table) {
             $table->id();
             $table->string("nome", 120)->nullable(false);
-            $table->string("cpf", 15)->nullable(false);
-            $table->string("creci", 90)->nullable(false);
+            $table->string("cpf", 11)->nullable(false);
+            $table->string("creci", 30)->nullable(false);
             $table->timestamps();
         });
     }

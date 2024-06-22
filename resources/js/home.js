@@ -58,6 +58,24 @@ editCorretorModalForm.addEventListener("submit", (e) => __awaiter(void 0, void 0
 const toggleLoadingStatus = (loadingDiv) => {
     loadingDiv.classList.toggle("loading");
 };
+function formatRowCpf(element) {
+    let cpf = element.innerText;
+    let cpfPattern = cpf.replace(/\D/g, '')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1-$2')
+        .replace(/(-\d{2})\d+?$/, '$1');
+    element.innerText = cpfPattern;
+}
+editCorretorCpfInput.addEventListener("input", (e) => {
+    let cpf = e.currentTarget.value;
+    let cpfPattern = cpf.replace(/\D/g, '')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1-$2')
+        .replace(/(-\d{2})\d+?$/, '$1');
+    e.currentTarget.value = cpfPattern;
+});
 const clearEditForm = () => {
     editCorretorCpfInput.value = "";
     editCorretorCreciInput.value = "";
@@ -102,6 +120,7 @@ const loadCorretorData = () => __awaiter(void 0, void 0, void 0, function* () {
     let res = yield req.json();
     if (res.status == 200) {
         editCorretorCpfInput.value = res.corretor.cpf;
+        editCorretorCpfInput.dispatchEvent(new Event("input"));
         editCorretorCreciInput.value = res.corretor.creci;
         editCorretorNameInput.value = res.corretor.nome;
     }

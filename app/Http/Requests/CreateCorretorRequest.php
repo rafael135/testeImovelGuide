@@ -25,8 +25,8 @@ class CreateCorretorRequest extends FormRequest
     {
         return [
             "nome" => "required|string|min:2|max:120",
-            "cpf" => "required|string|max:15",
-            "creci" => "required|string|min:2|max:6"
+            "cpf" => "required|string|min:15|max:15",
+            "creci" => "required|string|min:2|max:30"
         ];
     }
 }

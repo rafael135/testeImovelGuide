@@ -18,7 +18,7 @@ class CorretorFactory extends Factory
     {
         return [
             "nome" => $this->faker->name(),
-            "cpf" => $this->faker->numerify("###-###-###-##"),
+            "cpf" => $this->faker->numerify("###########"),
             "creci" => $this->faker->numerify("######")
         ];
     }

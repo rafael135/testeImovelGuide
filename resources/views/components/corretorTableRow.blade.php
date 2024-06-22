@@ -5,7 +5,7 @@
     <td class="corretor-nome px-6 py-4">
         {{ $nome }}
     </td>
-    <td class="corretor-cpf px-6 py-4">
+    <td onchange="formatRowCpf(this)" class="corretor-cpf px-6 py-4">
         {{ $cpf }}
     </td>
     <td class="corretor-creci px-6 py-4">
