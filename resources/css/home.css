@@ -3,6 +3,10 @@
         @apply inline-flex px-6 py-3 mx-auto text-white bg-blue-500 rounded-md hover:bg-blue-600;
     }
 
+    .errored {
+        @apply !border-red-700 placeholder:text-red-500;
+    }
+
 
 
     .modal {

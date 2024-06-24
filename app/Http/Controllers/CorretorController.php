@@ -59,6 +59,8 @@ class CorretorController extends Controller
             ], 400);
         }
 
+        $formatedCpf = $validatedData["cpf"];
+
         $corretor->nome = $validatedData["nome"];
         $corretor->cpf = $validatedData["cpf"];
         $corretor->cpf = str_replace(".", "", $corretor->cpf);
@@ -67,6 +69,7 @@ class CorretorController extends Controller
 
         $corretor->save();
 
+        $corretor->cpf = $formatedCpf;
         return response()->json([
             "corretor" => $corretor,
             "status" => 200

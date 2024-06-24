@@ -9,6 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const body = document.querySelector("body");
+const corretorRegisterForm = document.querySelector("form#corretorRegisterForm");
+const corretorRegisterFormInputs = corretorRegisterForm.querySelectorAll("input[type='text']");
 const editCorretorModal = document.querySelector("div#editCorretorModal");
 const editCorretorModalLoadingStatus = editCorretorModal.querySelector("div.loadingStatus");
 const editCorretorModalForm = editCorretorModal.querySelector("form#editCorretorModalForm");
@@ -26,6 +28,38 @@ let toastSuccessTimeoutId = null;
 const csrfToken = document.head.querySelector("meta[name='csrf-token']").content;
 let selectedCorretorId = null;
 let selectedCorretorTableRow = null;
+const showError = (input, error) => {
+    input.value = "";
+    input.placeholder = error;
+    input.classList.add("errored");
+    const event = (e) => {
+        input.placeholder = "";
+        input.classList.remove("errored");
+        input.removeEventListener("focus", event);
+    };
+    input.addEventListener("focus", event);
+};
+const checkErrors = (inputs, errors) => {
+    let keys = Object.keys(errors);
+    for (let i = 0; i < inputs.length; i++) {
+        for (let j = 0; j < keys.length; j++) {
+            if (inputs[i].name == keys[j]) {
+                showError(inputs[i], errors[keys[j]][0]);
+            }
+        }
+    }
+};
+const checkRegisterForm = () => {
+    for (let i = 0; i < corretorRegisterFormInputs.length; i++) {
+        if (corretorRegisterFormInputs[i].classList.contains("errored")) {
+            const event = (e) => {
+                corretorRegisterFormInputs[i].classList.remove("errored");
+                corretorRegisterFormInputs[i].removeEventListener("focus", event);
+            };
+            corretorRegisterFormInputs[i].addEventListener("focus", event);
+        }
+    }
+};
 const toggleShowToastSuccess = (txt) => {
     let toastSuccessText = toastSuccess.querySelector("div#toastSuccessText");
     if (showToast == true) {
@@ -49,16 +83,11 @@ const toggleShowToastSuccess = (txt) => {
         toastSuccess.classList.add("transition-opacity", "duration-300", "ease-out", "opacity-0", "hidden");
     }
 };
-editCorretorFormBtn.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
-    editCorretorRequest();
-}));
-editCorretorModalForm.addEventListener("submit", (e) => __awaiter(void 0, void 0, void 0, function* () {
-    e.preventDefault();
-}));
 const toggleLoadingStatus = (loadingDiv) => {
     loadingDiv.classList.toggle("loading");
 };
 function formatRowCpf(element) {
+    console.log(element);
     let cpf = element.innerText;
     let cpfPattern = cpf.replace(/\D/g, '')
         .replace(/(\d{3})(\d)/, '$1.$2')
@@ -67,15 +96,6 @@ function formatRowCpf(element) {
         .replace(/(-\d{2})\d+?$/, '$1');
     element.innerText = cpfPattern;
 }
-editCorretorCpfInput.addEventListener("input", (e) => {
-    let cpf = e.currentTarget.value;
-    let cpfPattern = cpf.replace(/\D/g, '')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1-$2')
-        .replace(/(-\d{2})\d+?$/, '$1');
-    e.currentTarget.value = cpfPattern;
-});
 const clearEditForm = () => {
     editCorretorCpfInput.value = "";
     editCorretorCreciInput.value = "";
@@ -86,20 +106,26 @@ const editCorretorRequest = () => __awaiter(void 0, void 0, void 0, function* ()
     let cpf = editCorretorCpfInput.value;
     let creci = editCorretorCreciInput.value;
     let nome = editCorretorNameInput.value;
-    let req = yield fetch(route("api.updateCorretor", { id: selectedCorretorId }), {
-        method: "PUT",
-        body: JSON.stringify({
-            cpf: cpf,
-            creci: creci,
-            nome: nome
-        }),
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        }
-    });
+    let req;
+    try {
+        req = yield fetch(route("api.updateCorretor", { id: selectedCorretorId }), {
+            method: "PUT",
+            body: JSON.stringify({
+                cpf: cpf,
+                creci: creci,
+                nome: nome
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        });
+    }
+    catch (e) {
+        return;
+    }
     let res = yield req.json();
-    if (res.status == 200) {
+    if (req.status == 200) {
         let corretorNome = selectedCorretorTableRow.querySelector("td.corretor-nome");
         let corretorCpf = selectedCorretorTableRow.querySelector("td.corretor-cpf");
         let corretorCreci = selectedCorretorTableRow.querySelector("td.corretor-creci");
@@ -109,6 +135,9 @@ const editCorretorRequest = () => __awaiter(void 0, void 0, void 0, function* ()
         showToast = true;
         toggleShowToastSuccess("Corretor editado com sucesso!");
         editCorretorModalCloseBtn.click();
+    }
+    if (req.status != 200) {
+        checkErrors([editCorretorCpfInput, editCorretorCreciInput, editCorretorNameInput], res.errors);
     }
     toggleLoadingStatus(editCorretorModalLoadingStatus);
 });
@@ -130,7 +159,7 @@ const loadCorretorData = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 function editCorretor(element) {
     let id = Number.parseInt(element.getAttribute("data-id"));
-    if (id == null && Number.isNaN(id) == true) {
+    if (id == null || Number.isNaN(id) == true) {
         return;
     }
     clearEditForm();
@@ -164,6 +193,7 @@ const deleteCorretorRequest = () => __awaiter(void 0, void 0, void 0, function* 
         showToast = true;
         toggleShowToastSuccess("Corretor excluído com sucesso!");
         deleteCorretorModalCloseBtn.click();
+        return;
     }
 });
 deleteCorretorModalConfirmBtn.addEventListener("click", (e) => {
@@ -171,4 +201,20 @@ deleteCorretorModalConfirmBtn.addEventListener("click", (e) => {
         deleteCorretorRequest();
     }
 });
+editCorretorFormBtn.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
+    editCorretorRequest();
+}));
+editCorretorCpfInput.addEventListener("input", (e) => {
+    let cpf = e.currentTarget.value;
+    let cpfPattern = cpf.replace(/\D/g, '')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1-$2')
+        .replace(/(-\d{2})\d+?$/, '$1');
+    e.currentTarget.value = cpfPattern;
+});
+editCorretorModalForm.addEventListener("submit", (e) => __awaiter(void 0, void 0, void 0, function* () {
+    e.preventDefault();
+}));
 toggleShowToastSuccess();
+checkRegisterForm();

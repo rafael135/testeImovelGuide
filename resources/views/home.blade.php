@@ -48,7 +48,7 @@
 
 
         <div class="my-2 flex justify-center items-center">
-            <form class="w-80 md:w-96 border border-solid border-gray-600/40 rounded-md shadow-lg"
+            <form id="corretorRegisterForm" class="w-80 md:w-96 border border-solid border-gray-600/40 rounded-md shadow-lg"
                 action="{{ route('cadastrarAction') }}" method="POST">
                 <h2 class="w-full py-3 mb-2 font-medium text-center bg-blue-600 text-white rounded-t-md">Cadastro de
                     Corretor
@@ -60,7 +60,7 @@
                             class="block mb-1 text-base font-medium text-gray-900 dark:text-white">CPF</label>
                         <input type="text" max="15" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" name="cpf"
                             id="createCpf"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('cpf') !border-red-700 placeholder:text-red-500 @enderror"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('cpf'){{ "errored" }}@enderror"
                             placeholder="@error('cpf'){{ $message }}@enderror @if(isset($status) == false){{ "000.000.000-00" }}@endif" required />
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     <label for="creci"
                         class="block mb-1 text-base font-medium text-gray-900 dark:text-white">CRECI</label>
                     <input type="text" min="2" name="creci" id="creci"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('creci') !border-red-700 placeholder:text-red-500 @enderror"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('creci'){{ "errored" }}@enderror"
                         placeholder="@error('creci'){{ $message }}@enderror" required />
                 </div>
 
@@ -77,7 +77,7 @@
                     <label for="nome"
                         class="block mb-1 text-base font-medium text-gray-900 dark:text-white">Nome</label>
                     <input type="text" min="2" name="nome" id="nome"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('nome') !border-red-700 placeholder:text-red-500 @enderror"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('nome'){{ "errored" }}@enderror"
                         placeholder="@error('nome'){{ $message }}@enderror" required />
                 </div>
                 <div class="px-2 pb-2">

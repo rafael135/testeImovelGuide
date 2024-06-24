@@ -19,7 +19,7 @@ class HomeController extends Controller
 
             $cpfPattern = "";
 
-            $slicedCount = count($sliced);
+            //$slicedCount = count($sliced);
 
             $cpfPatternCount = 0;
 
