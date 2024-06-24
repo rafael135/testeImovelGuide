@@ -17,7 +17,7 @@
             <ul class="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
                 <li>
                     <a href="{{ route("home") }}" class="block py-2 px-3 text-white bg-blue-700 rounded dark:bg-blue-600"
-                        aria-current="page">Home</a>
+                        aria-current="page">Tabela de Corretores</a>
                 </li>
             </ul>
         </div>
