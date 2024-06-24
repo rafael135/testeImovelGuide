@@ -42,8 +42,14 @@ Um CRUD simples para cadastro, edição, atualização e exclusão de corretores
     ```
     php artisan migrate
     ```
+
+    Opcional:
+    Execute o comando abaixo para gerar dados de teste:
+    ```
+    php artisan db:seed
+    ```
     
-5. Execute o projeto
+6. Execute o projeto
     
     Abra dois terminais na pasta raiz e execute os comandos:
     ```
