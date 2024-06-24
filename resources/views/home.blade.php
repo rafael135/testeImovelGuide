@@ -61,7 +61,7 @@
                         <input type="text" max="15" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" name="cpf"
                             id="createCpf"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('cpf') !border-red-700 placeholder:text-red-500 @enderror"
-                            placeholder="@error('cpf'){{ $message }}@enderror" required />
+                            placeholder="@error('cpf'){{ $message }}@enderror @if(isset($status) == false){{ "000.000.000-00" }}@endif" required />
                     </div>
                 </div>
 
